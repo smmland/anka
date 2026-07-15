@@ -1,0 +1,160 @@
+.asl-admin-wrap {
+	direction: rtl;
+	max-width: 960px;
+}
+
+.asl-admin-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 12px;
+	background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+	border-radius: 14px;
+	padding: 22px 26px;
+	margin: 18px 0;
+	color: #fff;
+}
+
+.asl-admin-brand {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+
+.asl-admin-brand .dashicons {
+	font-size: 34px;
+	width: 34px;
+	height: 34px;
+}
+
+.asl-admin-brand h1 {
+	color: #fff;
+	font-size: 19px;
+	margin: 0 0 4px;
+	padding: 0;
+}
+
+.asl-admin-brand p {
+	margin: 0;
+	font-size: 13px;
+	opacity: .9;
+}
+
+.asl-shortcode-hint {
+	background: rgba(255, 255, 255, .18);
+	color: #fff;
+	padding: 6px 12px;
+	border-radius: 8px;
+	direction: ltr;
+}
+
+.asl-admin-tabs.nav-tab-wrapper {
+	border-bottom: 1px solid #dcdcde;
+	margin-bottom: 0;
+}
+
+.asl-admin-panel {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-top: 0;
+	padding: 24px 26px;
+	border-radius: 0 0 10px 10px;
+}
+
+.asl-section-title {
+	font-size: 15px;
+	margin: 28px 0 4px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #eee;
+}
+
+.asl-section-title:first-child {
+	margin-top: 0;
+}
+
+.asl-switch {
+	position: relative;
+	display: inline-block;
+	width: 40px;
+	height: 22px;
+	vertical-align: middle;
+}
+
+.asl-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.asl-switch-slider {
+	position: absolute;
+	inset: 0;
+	background: #d3d3d8;
+	border-radius: 999px;
+	cursor: pointer;
+	transition: background .2s ease;
+}
+
+.asl-switch-slider::before {
+	content: "";
+	position: absolute;
+	right: 3px;
+	top: 3px;
+	width: 16px;
+	height: 16px;
+	background: #fff;
+	border-radius: 50%;
+	transition: transform .2s ease;
+}
+
+.asl-switch input:checked + .asl-switch-slider {
+	background: #7C3AED;
+}
+
+.asl-switch input:checked + .asl-switch-slider::before {
+	transform: translateX(-18px);
+}
+
+.asl-media-field {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.asl-media-field img {
+	width: 56px;
+	height: 56px;
+	object-fit: cover;
+	border-radius: 10px;
+	border: 1px solid #dcdcde;
+}
+
+.asl-color-field {
+	max-width: 120px;
+}
+
+.asl-test-sms-box {
+	margin-top: 28px;
+	padding: 18px 20px;
+	background: #f6f5fb;
+	border-radius: 10px;
+	border: 1px solid #e5e3f0;
+}
+
+.asl-test-sms-box h3 {
+	margin-top: 0;
+}
+
+#asl-test-result {
+	margin-right: 10px;
+	font-weight: 600;
+}
+
+#asl-test-result.is-success {
+	color: #1e7e42;
+}
+
+#asl-test-result.is-error {
+	color: #c62828;
+}

@@ -1,0 +1,294 @@
+.asl-wrapper {
+	--asl-primary: #7C3AED;
+	--asl-secondary: #06B6D4;
+	--asl-radius: 20px;
+	display: flex;
+	justify-content: center;
+	padding: 32px 16px;
+	box-sizing: border-box;
+}
+
+.asl-wrapper *,
+.asl-wrapper *::before,
+.asl-wrapper *::after {
+	box-sizing: border-box;
+}
+
+.asl-card {
+	position: relative;
+	width: 100%;
+	max-width: 400px;
+	background: #ffffff;
+	border-radius: var(--asl-radius);
+	padding: 40px 32px 28px;
+	box-shadow: 0 20px 45px -15px rgba(30, 20, 60, 0.25), 0 2px 8px rgba(30, 20, 60, 0.06);
+	overflow: hidden;
+	text-align: center;
+	font-family: inherit;
+}
+
+.asl-card::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 6px;
+	background: linear-gradient(90deg, var(--asl-primary), var(--asl-secondary));
+}
+
+.asl-card-icon {
+	width: 64px;
+	height: 64px;
+	margin: 4px auto 18px;
+	border-radius: 18px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, var(--asl-primary), var(--asl-secondary));
+	box-shadow: 0 10px 20px -8px color-mix(in srgb, var(--asl-primary) 60%, transparent);
+	color: #fff;
+}
+
+.asl-card-icon img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 18px;
+}
+
+.asl-tabs {
+	position: relative;
+	display: flex;
+	background: #f4f3fb;
+	border-radius: 999px;
+	padding: 4px;
+	margin-bottom: 24px;
+}
+
+.asl-tab {
+	flex: 1;
+	position: relative;
+	z-index: 1;
+	border: 0;
+	background: transparent;
+	padding: 10px 12px;
+	font-size: 14px;
+	font-weight: 600;
+	color: #6b6480;
+	cursor: pointer;
+	border-radius: 999px;
+	transition: color .25s ease;
+}
+
+.asl-tab.is-active {
+	color: #fff;
+}
+
+.asl-tab-indicator {
+	position: absolute;
+	top: 4px;
+	bottom: 4px;
+	right: 4px;
+	width: calc(50% - 4px);
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--asl-primary), var(--asl-secondary));
+	transition: transform .3s cubic-bezier(.65,0,.35,1);
+	z-index: 0;
+}
+
+.asl-tabs[data-active="register"] .asl-tab-indicator {
+	transform: translateX(-100%);
+}
+
+.asl-title {
+	font-size: 20px;
+	font-weight: 800;
+	margin: 0 0 6px;
+	color: #201a35;
+}
+
+.asl-subtitle {
+	font-size: 13.5px;
+	color: #83809a;
+	margin: 0 0 22px;
+	line-height: 1.9;
+}
+
+.asl-panel {
+	display: none;
+	animation: asl-fade-in .35s ease;
+}
+
+.asl-panel.is-active {
+	display: block;
+}
+
+@keyframes asl-fade-in {
+	from { opacity: 0; transform: translateY(6px); }
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.asl-form[hidden] {
+	display: none;
+}
+
+.asl-field {
+	margin-bottom: 14px;
+	text-align: right;
+}
+
+.asl-input {
+	width: 100%;
+	padding: 13px 16px;
+	border-radius: 12px;
+	border: 1.5px solid #e7e5f2;
+	background: #faf9ff;
+	font-size: 14.5px;
+	color: #201a35;
+	transition: border-color .2s ease, box-shadow .2s ease;
+	direction: rtl;
+	text-align: right;
+	font-family: inherit;
+}
+
+.asl-input[name="mobile"],
+.asl-input[name="code"] {
+	direction: ltr;
+	text-align: center;
+	letter-spacing: 1px;
+}
+
+.asl-input:focus {
+	outline: none;
+	border-color: var(--asl-primary);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--asl-primary) 14%, transparent);
+	background: #fff;
+}
+
+.asl-otp-row {
+	display: flex;
+	gap: 8px;
+	align-items: stretch;
+}
+
+.asl-otp-row .asl-code-input {
+	flex: 1;
+}
+
+.asl-resend-btn {
+	flex-shrink: 0;
+	border: 1.5px solid #e7e5f2;
+	background: #fff;
+	border-radius: 12px;
+	padding: 0 14px;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--asl-primary);
+	cursor: pointer;
+	white-space: nowrap;
+}
+
+.asl-resend-btn:disabled {
+	color: #b6b2c8;
+	cursor: not-allowed;
+}
+
+.asl-btn {
+	width: 100%;
+	padding: 13px 16px;
+	border-radius: 12px;
+	border: 0;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+	font-family: inherit;
+}
+
+.asl-btn-primary {
+	background: linear-gradient(90deg, var(--asl-primary), var(--asl-secondary));
+	color: #fff;
+	box-shadow: 0 12px 24px -10px color-mix(in srgb, var(--asl-primary) 70%, transparent);
+}
+
+.asl-btn-primary:hover {
+	transform: translateY(-1px);
+}
+
+.asl-btn-primary:disabled {
+	opacity: .65;
+	cursor: not-allowed;
+	transform: none;
+}
+
+.asl-link-switch {
+	display: block;
+	width: 100%;
+	background: none;
+	border: 0;
+	margin-top: 14px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--asl-primary);
+	cursor: pointer;
+}
+
+.asl-switch-text {
+	margin: 18px 0 0;
+	font-size: 13px;
+	color: #83809a;
+}
+
+.asl-link-tab {
+	background: none;
+	border: 0;
+	padding: 0;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--asl-primary);
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.asl-alert {
+	margin-bottom: 16px;
+	padding: 12px 14px;
+	border-radius: 12px;
+	font-size: 13px;
+	line-height: 1.8;
+	text-align: right;
+}
+
+.asl-alert.is-error {
+	background: #fdecec;
+	color: #c62828;
+}
+
+.asl-alert.is-success {
+	background: #e9f9ef;
+	color: #1e7e42;
+}
+
+.asl-recaptcha-holder {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 14px;
+}
+
+.asl-powered-by {
+	margin-top: 22px;
+	font-size: 11.5px;
+	color: #b6b2c8;
+}
+
+.asl-disabled-notice,
+.asl-logged-in-notice {
+	padding: 24px;
+	font-size: 14px;
+	color: #4a465c;
+}
+
+@media (max-width: 420px) {
+	.asl-card {
+		padding: 32px 20px 22px;
+	}
+}

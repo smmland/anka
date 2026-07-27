@@ -29,7 +29,9 @@
 					key: 'bmg-label-icon',
 					src: settings.icon,
 					alt: label,
-					style: { marginInlineStart: '8px', maxHeight: '24px', verticalAlign: 'middle' },
+					width: 40,
+					height: 40,
+					style: { marginInlineStart: '8px', width: '40px', height: '40px', objectFit: 'contain', verticalAlign: 'middle' },
 				} )
 			);
 		}

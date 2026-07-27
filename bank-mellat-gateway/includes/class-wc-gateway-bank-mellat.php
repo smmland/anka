@@ -46,6 +46,20 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'display_order_meta_box' ) );
 		add_action( 'admin_post_bmg_clear_log', array( $this, 'handle_clear_log' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_assets' ) );
+		add_filter( 'woocommerce_gateway_icon', array( $this, 'fix_icon_size' ), 10, 2 );
+	}
+
+	/**
+	 * WC_Payment_Gateway::get_icon() renders the icon at its natural file size,
+	 * so a very large or oddly-shaped custom icon URL could break the checkout
+	 * layout. Locking it to a fixed 40x40 box keeps display consistent.
+	 */
+	public function fix_icon_size( $icon_html, $gateway_id ) {
+		if ( $gateway_id !== $this->id || empty( $this->icon ) ) {
+			return $icon_html;
+		}
+
+		return '<img src="' . esc_url( WC_HTTPS::force_https_url( $this->icon ) ) . '" alt="' . esc_attr( $this->get_title() ) . '" width="40" height="40" style="width:40px;height:40px;object-fit:contain;vertical-align:middle;" />';
 	}
 
 	/**

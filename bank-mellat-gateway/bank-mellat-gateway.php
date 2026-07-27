@@ -3,7 +3,7 @@
  * Plugin Name: درگاه پرداخت بانک ملت (به‌پرداخت) برای ووکامرس
  * Plugin URI: https://arankia.ir
  * Description: اتصال امن درگاه پرداخت بانک ملت (به‌پرداخت ملت) به ووکامرس از طریق وب‌سرویس رسمی بانک؛ با تنظیمات ترمینال آی‌دی، نام کاربری و رمز عبور در بخش پرداخت‌های ووکامرس.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Arankia
  * Author URI: https://arankia.ir
  * Text Domain: bank-mellat-gateway
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BMG_VERSION', '1.2.0' );
+define( 'BMG_VERSION', '1.2.1' );
 define( 'BMG_FILE', __FILE__ );
 define( 'BMG_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BMG_URL', plugin_dir_url( __FILE__ ) );

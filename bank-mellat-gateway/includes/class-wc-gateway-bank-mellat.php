@@ -36,6 +36,12 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		$this->convert_to_rial   = 'yes' === $this->get_option( 'convert_to_rial', 'yes' );
 		$this->debug              = 'yes' === $this->get_option( 'debug', 'no' );
 
+		// Only admins ever see this gateway while test mode is on, so label it
+		// clearly to avoid mistaking it for a fully live, customer-visible gateway.
+		if ( 'yes' === $this->get_option( 'test_mode' ) ) {
+			$this->title .= ' ' . __( '(حالت تست — فقط شما این را می‌بینید)', 'bank-mellat-gateway' );
+		}
+
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thankyou_page' ) );
@@ -222,6 +228,14 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 				'default'     => 'no',
 				'desc_tip'    => true,
 			),
+			'test_mode'        => array(
+				'title'       => __( 'حالت تست', 'bank-mellat-gateway' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'فقط مدیران فروشگاه این روش پرداخت را در تسویه‌حساب ببینند', 'bank-mellat-gateway' ),
+				'description' => __( 'با فعال بودن این گزینه، این درگاه فقط برای کاربرانی که دسترسی مدیریت ووکامرس دارند (مثلاً خودتان، هنگام لاگین در پیشخوان) در صفحه تسویه‌حساب نمایش داده می‌شود؛ سایر مشتریان اصلاً آن را نمی‌بینند. برای آزمایش واقعی درگاه روی سایت اصلی، بدون نمایش آن به مشتریان، این گزینه را فعال کنید و بعد از اطمینان از عملکرد صحیح، غیرفعالش کنید.', 'bank-mellat-gateway' ),
+				'default'     => 'no',
+				'desc_tip'    => false,
+			),
 		);
 	}
 
@@ -231,6 +245,10 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		}
 
 		if ( '' === $this->get_option( 'terminal_id' ) || '' === $this->get_option( 'username' ) || '' === $this->get_option( 'password' ) ) {
+			return false;
+		}
+
+		if ( 'yes' === $this->get_option( 'test_mode' ) && ! current_user_can( 'manage_woocommerce' ) ) {
 			return false;
 		}
 

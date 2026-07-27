@@ -139,6 +139,28 @@ class BMG_API {
 	}
 
 	/**
+	 * Query the current status of a transaction at the bank without changing it.
+	 * Useful for manual support/troubleshooting from the order screen.
+	 *
+	 * @throws Exception
+	 * @return string result code
+	 */
+	public function inquiry( $order_id, $sale_order_id, $sale_reference_id ) {
+		$client = $this->get_soap_client();
+		$params = array_merge(
+			$this->base_params(),
+			array(
+				'orderId'         => (int) $order_id,
+				'saleOrderId'     => (int) $sale_order_id,
+				'saleReferenceId' => (string) $sale_reference_id,
+			)
+		);
+
+		$response = $client->bpInquiryRequest( $params );
+		return isset( $response->return ) ? trim( (string) $response->return ) : '';
+	}
+
+	/**
 	 * Roll back a verified-but-not-settled transaction.
 	 *
 	 * @throws Exception

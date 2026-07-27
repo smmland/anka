@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" width="200" height="56" role="img" aria-label="بانک ملت">
+	<rect x="1" y="1" width="198" height="54" rx="10" fill="#B71C2B" stroke="#8f1420" stroke-width="1"/>
+	<rect x="10" y="16" width="26" height="18" rx="3" fill="#F2C14E"/>
+	<rect x="10" y="16" width="26" height="5" fill="#8f1420" opacity="0.35"/>
+	<line x1="16" y1="34" x2="16" y2="16" stroke="#8f1420" stroke-width="1" opacity="0.35"/>
+	<line x1="30" y1="34" x2="30" y2="16" stroke="#8f1420" stroke-width="1" opacity="0.35"/>
+	<text x="190" y="34" text-anchor="end" font-family="Tahoma, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff" direction="rtl">بانک ملت</text>
+	<text x="190" y="47" text-anchor="end" font-family="Tahoma, 'Segoe UI', Arial, sans-serif" font-size="9" fill="#f6d9dd" direction="rtl">درگاه پرداخت به‌پرداخت</text>
+</svg>

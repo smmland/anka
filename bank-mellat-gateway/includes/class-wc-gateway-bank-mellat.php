@@ -769,11 +769,11 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 
 		echo '<textarea readonly rows="18" dir="ltr" style="width:100%;max-width:100%;font-family:Consolas,Menlo,monospace;font-size:12px;direction:ltr;text-align:left;white-space:pre;">' . esc_textarea( $content ) . '</textarea>';
 
-		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" style="margin-top:8px;">';
-		wp_nonce_field( 'bmg_clear_log' );
-		echo '<input type="hidden" name="action" value="bmg_clear_log" />';
-		echo '<button type="submit" class="button" onclick="return confirm(\'' . esc_js( __( 'همه فایل‌های گزارش این درگاه پاک شوند؟', 'bank-mellat-gateway' ) ) . '\');">' . esc_html__( 'پاک کردن گزارش', 'bank-mellat-gateway' ) . '</button>';
-		echo '</form>';
+		// A <form> here would nest inside WooCommerce's own #mainform settings form, which
+		// is invalid HTML and breaks the page's real "Save changes" button — use a plain
+		// nonced link instead (handle_clear_log() doesn't require POST).
+		$clear_url = wp_nonce_url( admin_url( 'admin-post.php?action=bmg_clear_log' ), 'bmg_clear_log' );
+		echo '<p style="margin-top:8px;"><a href="' . esc_url( $clear_url ) . '" class="button" onclick="return confirm(\'' . esc_js( __( 'همه فایل‌های گزارش این درگاه پاک شوند؟', 'bank-mellat-gateway' ) ) . '\');">' . esc_html__( 'پاک کردن گزارش', 'bank-mellat-gateway' ) . '</a></p>';
 	}
 
 	public function handle_clear_log() {

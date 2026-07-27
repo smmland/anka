@@ -3,7 +3,7 @@
  * Plugin Name: درگاه پرداخت بانک ملت (به‌پرداخت) برای ووکامرس
  * Plugin URI: https://arankia.ir
  * Description: اتصال امن درگاه پرداخت بانک ملت (به‌پرداخت ملت) به ووکامرس از طریق وب‌سرویس رسمی بانک؛ با تنظیمات ترمینال آی‌دی، نام کاربری و رمز عبور در بخش پرداخت‌های ووکامرس.
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Arankia
  * Author URI: https://arankia.ir
  * Text Domain: bank-mellat-gateway
@@ -19,18 +19,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BMG_VERSION', '1.1.1' );
+define( 'BMG_VERSION', '1.2.0' );
 define( 'BMG_FILE', __FILE__ );
 define( 'BMG_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BMG_URL', plugin_dir_url( __FILE__ ) );
 define( 'BMG_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
- * Declare HPOS (High-Performance Order Storage) compatibility early.
+ * Declare HPOS (High-Performance Order Storage) and Cart/Checkout Blocks compatibility early.
  */
 add_action( 'before_woocommerce_init', function () {
 	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
 		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', BMG_FILE, true );
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', BMG_FILE, true );
 	}
 } );
 
@@ -51,13 +52,43 @@ function bmg_bootstrap() {
 
 	require_once BMG_DIR . 'includes/class-bmg-api.php';
 	require_once BMG_DIR . 'includes/class-wc-gateway-bank-mellat.php';
+	require_once BMG_DIR . 'includes/class-bmg-diagnostics.php';
+	require_once BMG_DIR . 'includes/class-bmg-reports.php';
 
 	add_filter( 'woocommerce_payment_gateways', 'bmg_add_gateway' );
+
+	add_action( 'woocommerce_blocks_payment_method_type_registration', 'bmg_register_blocks_support' );
+
+	BMG_Diagnostics::init();
+	BMG_Reports::init();
 }
 
 function bmg_add_gateway( $gateways ) {
 	$gateways[] = 'WC_Gateway_Bank_Mellat';
 	return $gateways;
+}
+
+function bmg_register_blocks_support( $payment_method_registry ) {
+	require_once BMG_DIR . 'includes/class-bmg-blocks-support.php';
+
+	if ( class_exists( 'BMG_Blocks_Support' ) ) {
+		$payment_method_registry->register( new BMG_Blocks_Support() );
+	}
+}
+
+/**
+ * Gravity Forms integration is fully optional: it only loads if Gravity Forms
+ * itself is active, using GF's own bootstrap hook.
+ */
+add_action( 'gform_loaded', 'bmg_bootstrap_gravityforms', 5 );
+
+function bmg_bootstrap_gravityforms() {
+	if ( ! extension_loaded( 'soap' ) || ! method_exists( 'GFForms', 'include_addon_framework' ) ) {
+		return;
+	}
+
+	require_once BMG_DIR . 'includes/class-bmg-api.php';
+	require_once BMG_DIR . 'includes/class-bmg-gravityforms.php';
 }
 
 function bmg_missing_woocommerce_notice() {

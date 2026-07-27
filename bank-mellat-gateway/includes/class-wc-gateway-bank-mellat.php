@@ -273,7 +273,7 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		}
 
 		if ( '0' !== $result['res_code'] || empty( $result['ref_id'] ) ) {
-			$this->log( 'PayRequest failed for order ' . $order->get_id() . ' with code ' . $result['res_code'], 'error' );
+			$this->log( 'PayRequest failed for order ' . $order->get_id() . ' with code ' . $result['res_code'] . '. Raw response: ' . $api->get_last_raw_response(), 'error' );
 			$order->add_order_note( sprintf( __( 'درخواست پرداخت بانک ملت ناموفق بود. کد: %s', 'bank-mellat-gateway' ), $result['res_code'] ) );
 
 			$message = $this->render_message(
@@ -408,7 +408,7 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		}
 
 		if ( '0' !== $verify_code ) {
-			$this->log( 'Verify failed for order ' . $sale_order_id . ' with code ' . $verify_code, 'error' );
+			$this->log( 'Verify failed for order ' . $sale_order_id . ' with code ' . $verify_code . '. Raw response: ' . $api->get_last_raw_response(), 'error' );
 			$order->update_status( 'failed', sprintf( __( 'تایید تراکنش بانک ملت ناموفق بود. کد: %s', 'bank-mellat-gateway' ), $verify_code ) );
 			$this->add_failed_notice( $order, $verify_code );
 			wp_safe_redirect( $order->get_checkout_payment_url( false ) );
@@ -437,7 +437,7 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 			exit;
 		}
 
-		$this->log( 'Settle failed for order ' . $sale_order_id . ' with code ' . $settle_code . '; attempting reversal.', 'error' );
+		$this->log( 'Settle failed for order ' . $sale_order_id . ' with code ' . $settle_code . '. Raw response: ' . $api->get_last_raw_response() . '. Attempting reversal.', 'error' );
 
 		try {
 			$api->reverse( $sale_order_id, $sale_order_id, $sale_reference_id );

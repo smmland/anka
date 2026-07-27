@@ -21,6 +21,9 @@ class BMG_API {
 	/** @var string */
 	private $password;
 
+	/** @var SoapClient|null */
+	private $client;
+
 	public function __construct( $terminal_id, $username, $password ) {
 		$this->terminal_id = $terminal_id;
 		$this->username    = $username;
@@ -35,7 +38,7 @@ class BMG_API {
 			throw new Exception( __( 'اکستنشن PHP SOAP روی سرور فعال نیست.', 'bank-mellat-gateway' ) );
 		}
 
-		return new SoapClient(
+		$this->client = new SoapClient(
 			self::WSDL_URL,
 			array(
 				'encoding'           => 'UTF-8',
@@ -53,6 +56,16 @@ class BMG_API {
 				),
 			)
 		);
+
+		return $this->client;
+	}
+
+	/**
+	 * Raw XML of the last SOAP response received, for debugging unrecognized result codes.
+	 * Credentials are sent as request parameters, not present in the response body.
+	 */
+	public function get_last_raw_response() {
+		return $this->client ? (string) $this->client->__getLastResponse() : '';
 	}
 
 	private function base_params() {

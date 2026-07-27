@@ -44,6 +44,7 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		add_filter( 'woocommerce_order_actions', array( $this, 'add_order_actions' ) );
 		add_action( 'woocommerce_order_action_bmg_inquiry', array( $this, 'order_action_inquiry' ) );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'display_order_meta_box' ) );
+		add_action( 'admin_post_bmg_clear_log', array( $this, 'handle_clear_log' ) );
 	}
 
 	public function init_form_fields() {
@@ -530,5 +531,112 @@ class WC_Gateway_Bank_Mellat extends WC_Payment_Gateway {
 		}
 
 		echo '</div>';
+	}
+
+	/**
+	 * Renders the settings form and, right below it, a read-only viewer for this
+	 * gateway's own debug log so troubleshooting doesn't require leaving the page.
+	 */
+	public function admin_options() {
+		parent::admin_options();
+		$this->render_log_viewer();
+	}
+
+	/**
+	 * Finds this gateway's WooCommerce log files (newest first).
+	 */
+	private function get_log_files() {
+		if ( ! defined( 'WC_LOG_DIR' ) || ! is_dir( WC_LOG_DIR ) ) {
+			return array();
+		}
+
+		$files = glob( trailingslashit( WC_LOG_DIR ) . 'bank-mellat-gateway-*.log' );
+
+		if ( empty( $files ) ) {
+			return array();
+		}
+
+		usort(
+			$files,
+			function ( $a, $b ) {
+				return filemtime( $b ) - filemtime( $a );
+			}
+		);
+
+		return $files;
+	}
+
+	/**
+	 * Reads up to $max_lines from the end of a file without loading huge files entirely into memory.
+	 */
+	private function tail_file( $path, $max_lines = 300, $max_bytes = 262144 ) {
+		if ( ! is_readable( $path ) ) {
+			return '';
+		}
+
+		$size   = filesize( $path );
+		$handle = fopen( $path, 'r' );
+
+		if ( ! $handle ) {
+			return '';
+		}
+
+		$read_bytes = min( $size, $max_bytes );
+		fseek( $handle, -$read_bytes, SEEK_END );
+		$data = fread( $handle, $read_bytes );
+		fclose( $handle );
+
+		$lines = explode( "\n", $data );
+		$lines = array_slice( $lines, -$max_lines );
+
+		return implode( "\n", $lines );
+	}
+
+	private function render_log_viewer() {
+		echo '<h3>' . esc_html__( 'گزارش رویدادهای درگاه بانک ملت', 'bank-mellat-gateway' ) . '</h3>';
+
+		if ( ! $this->debug ) {
+			echo '<p>' . esc_html__( 'برای مشاهده گزارش تراکنش‌ها و خطاها در همین صفحه، ابتدا گزینه «حالت اشکال‌زدایی» را در بالا فعال و ذخیره کنید، سپس یک بار پرداخت را تست کنید.', 'bank-mellat-gateway' ) . '</p>';
+			return;
+		}
+
+		$files = $this->get_log_files();
+
+		if ( empty( $files ) ) {
+			echo '<p>' . esc_html__( 'هنوز هیچ رویدادی ثبت نشده است.', 'bank-mellat-gateway' ) . '</p>';
+			return;
+		}
+
+		$content = $this->tail_file( $files[0] );
+
+		echo '<p>' . sprintf(
+			/* translators: %s: log file name */
+			esc_html__( 'آخرین رویدادها (فایل: %s). برای دیدن رویدادهای جدید، این صفحه را رفرش کنید.', 'bank-mellat-gateway' ),
+			esc_html( basename( $files[0] ) )
+		) . '</p>';
+
+		echo '<textarea readonly rows="18" dir="ltr" style="width:100%;max-width:100%;font-family:Consolas,Menlo,monospace;font-size:12px;direction:ltr;text-align:left;white-space:pre;">' . esc_textarea( $content ) . '</textarea>';
+
+		echo '<form method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '" style="margin-top:8px;">';
+		wp_nonce_field( 'bmg_clear_log' );
+		echo '<input type="hidden" name="action" value="bmg_clear_log" />';
+		echo '<button type="submit" class="button" onclick="return confirm(\'' . esc_js( __( 'همه فایل‌های گزارش این درگاه پاک شوند؟', 'bank-mellat-gateway' ) ) . '\');">' . esc_html__( 'پاک کردن گزارش', 'bank-mellat-gateway' ) . '</button>';
+		echo '</form>';
+	}
+
+	public function handle_clear_log() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( esc_html__( 'شما اجازه دسترسی به این بخش را ندارید.', 'bank-mellat-gateway' ), '', array( 'response' => 403 ) );
+		}
+
+		check_admin_referer( 'bmg_clear_log' );
+
+		foreach ( $this->get_log_files() as $file ) {
+			// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- best-effort cleanup, missing/locked files are not fatal.
+			@unlink( $file );
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=checkout&section=' . $this->id ) );
+		exit;
 	}
 }

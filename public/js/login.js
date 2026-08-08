@@ -264,11 +264,14 @@
 
 			getRecaptchaToken( form, 'send_otp' ).then( function ( token ) {
 				var nonce = form.querySelector( 'input[name="_asl_nonce"]' ).value;
+				var termsField = form.querySelector( '[name="terms_accepted"]' );
+				var termsAccepted = termsField ? ( 'checkbox' === termsField.type ? ( termsField.checked ? '1' : '' ) : termsField.value ) : '';
 				return post( 'asl_send_otp', {
 					nonce: nonce,
 					mobile: mobile,
 					mode: mode,
 					name: nameInput ? nameInput.value : '',
+					terms_accepted: termsAccepted,
 					recaptcha_token: token,
 				} );
 			} ).then( function ( res ) {

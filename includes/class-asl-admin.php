@@ -122,6 +122,8 @@ class ASL_Admin {
 			'replace_wp_login'         => $this->cb( 'replace_wp_login' ),
 			'login_page_id'            => isset( $_POST['login_page_id'] ) ? absint( $_POST['login_page_id'] ) : 0,
 			'delete_data_on_uninstall' => $this->cb( 'delete_data_on_uninstall' ),
+			'enable_terms'             => $this->cb( 'enable_terms' ),
+			'terms_text_mode'          => $this->cb( 'terms_text_mode' ),
 		);
 	}
 
@@ -178,9 +180,12 @@ class ASL_Admin {
 			'placeholder_password', 'placeholder_name', 'btn_send_code', 'btn_verify',
 			'btn_register', 'btn_password_login', 'link_use_password', 'link_use_otp',
 			'link_resend', 'text_switch_to_register', 'text_switch_to_login', 'powered_by_text',
+			'terms_text', 'terms_link_label',
 		) as $key ) {
 			$fields[ $key ] = $this->txt( $key, $defaults[ $key ] ) ?: $defaults[ $key ];
 		}
+
+		$fields['terms_url'] = isset( $_POST['terms_url'] ) ? esc_url_raw( wp_unslash( $_POST['terms_url'] ) ) : '';
 
 		return $fields;
 	}
@@ -287,6 +292,14 @@ class ASL_Admin {
 				$this->field_row( __( 'امکان ثبت‌نام', 'arankia-sms-login' ), function () use ( $g ) {
 					$this->checkbox( 'allow_register', $g['allow_register'], __( 'نمایش تب ثبت‌نام در صفحه ورود', 'arankia-sms-login' ) );
 				} );
+
+				$this->field_row( __( 'گزینه پذیرفتن قوانین', 'arankia-sms-login' ), function () use ( $g ) {
+					$this->checkbox( 'enable_terms', $g['enable_terms'], __( 'نمایش گزینه پذیرفتن قوانین در فرم ثبت‌نام', 'arankia-sms-login' ) );
+				}, __( 'در حال حاضر پیشنهاد می‌شود این گزینه غیرفعال بماند؛ به‌صورت پیش‌فرض نمایش داده نمی‌شود.', 'arankia-sms-login' ) );
+
+				$this->field_row( __( 'نحوه نمایش پذیرفتن قوانین', 'arankia-sms-login' ), function () use ( $g ) {
+					$this->checkbox( 'terms_text_mode', $g['terms_text_mode'], __( 'نمایش به‌صورت متن پذیرفته‌شده (بدون نیاز به کلیک کاربر)', 'arankia-sms-login' ) );
+				}, __( 'در صورت خاموش بودن، به‌صورت چک‌باکس نمایش داده می‌شود و کاربر باید آن را علامت بزند. متن و لینک قوانین از تب «طراحی و متن‌ها» قابل تنظیم است. این گزینه فقط زمانی اعمال می‌شود که «گزینه پذیرفتن قوانین» فعال باشد.', 'arankia-sms-login' ) );
 
 				$this->field_row( __( 'ثبت‌نام خودکار هنگام ورود', 'arankia-sms-login' ), function () use ( $g ) {
 					$this->checkbox( 'auto_register_on_login', $g['auto_register_on_login'], __( 'اگر شماره موبایل در سایت ثبت نبود، هنگام ورود با پیامک به‌صورت خودکار حساب بسازد', 'arankia-sms-login' ) );
@@ -519,6 +532,23 @@ class ASL_Admin {
 				}
 				?>
 			</table>
+
+			<h2 class="asl-section-title"><?php esc_html_e( 'قوانین و مقررات', 'arankia-sms-login' ); ?></h2>
+			<table class="form-table">
+				<?php
+				$this->field_row( __( 'متن پذیرفتن قوانین', 'arankia-sms-login' ), function () use ( $d ) {
+					$this->text_input( 'terms_text', $d['terms_text'] );
+				}, __( 'از {link} برای جای‌گذاری متن لینک قوانین در جمله استفاده کنید.', 'arankia-sms-login' ) );
+
+				$this->field_row( __( 'متن لینک قوانین', 'arankia-sms-login' ), function () use ( $d ) {
+					$this->text_input( 'terms_link_label', $d['terms_link_label'] );
+				} );
+
+				$this->field_row( __( 'آدرس صفحه قوانین و مقررات', 'arankia-sms-login' ), function () use ( $d ) {
+					$this->text_input( 'terms_url', $d['terms_url'], 'url' );
+				}, __( 'خالی بگذارید تا متن لینک به‌صورت ساده (بدون لینک) نمایش داده شود. این بخش فقط وقتی «گزینه پذیرفتن قوانین» از تب تنظیمات عمومی فعال باشد نمایش داده می‌شود.', 'arankia-sms-login' ) );
+				?>
+			</table>
 			<?php submit_button( __( 'ذخیره تنظیمات', 'arankia-sms-login' ) ); ?>
 		</form>
 		<?php
@@ -544,6 +574,7 @@ class ASL_Admin {
 			'panel_disabled'          => __( 'پنل غیرفعال است', 'arankia-sms-login' ),
 			'password_login_disabled' => __( 'ورود با رمز عبور غیرفعال است', 'arankia-sms-login' ),
 			'register_disabled'       => __( 'ثبت‌نام غیرفعال است', 'arankia-sms-login' ),
+			'terms_required'          => __( 'عدم پذیرفتن قوانین (حالت چک‌باکس)', 'arankia-sms-login' ),
 		);
 		?>
 		<form method="post">

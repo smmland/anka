@@ -24,6 +24,8 @@ class ASL_Settings {
 				'replace_wp_login'         => 0,
 				'login_page_id'            => 0,
 				'delete_data_on_uninstall' => 0,
+				'enable_terms'             => 0,
+				'terms_text_mode'          => 0, // 0 = checkbox (requires click), 1 = plain text (no click needed)
 			),
 			'asl_melipayamak' => array(
 				'connection_method'    => 'webservice', // webservice | apikey
@@ -73,6 +75,9 @@ class ASL_Settings {
 				'text_switch_to_login'      => 'قبلا ثبت‌نام کرده‌اید؟ وارد شوید',
 				'show_powered_by'           => 1,
 				'powered_by_text'           => 'ورود امن با آرانکیا',
+				'terms_text'                => 'با ثبت‌نام، {link} سایت آرانکیا را می‌پذیرم.',
+				'terms_link_label'          => 'قوانین و مقررات',
+				'terms_url'                 => '',
 			),
 			'asl_messages' => array(
 				'invalid_mobile'          => 'شماره موبایل وارد شده معتبر نیست.',
@@ -92,6 +97,7 @@ class ASL_Settings {
 				'panel_disabled'          => 'امکان ورود پیامکی در حال حاضر غیرفعال است.',
 				'password_login_disabled' => 'ورود با رمز عبور غیرفعال است.',
 				'register_disabled'       => 'ثبت‌نام غیرفعال است.',
+				'terms_required'          => 'برای ثبت‌نام باید قوانین و مقررات را بپذیرید.',
 			),
 		);
 	}

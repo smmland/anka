@@ -33,9 +33,10 @@ class ASL_Ajax {
 			wp_send_json_error( array( 'message' => ASL_Settings::message( 'generic_error' ) ) );
 		}
 
-		$mobile = ASL_Auth::normalize_mobile( isset( $_POST['mobile'] ) ? wp_unslash( $_POST['mobile'] ) : '' );
-		$mode   = isset( $_POST['mode'] ) && 'register' === $_POST['mode'] ? 'register' : 'login';
-		$name   = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		$mobile         = ASL_Auth::normalize_mobile( isset( $_POST['mobile'] ) ? wp_unslash( $_POST['mobile'] ) : '' );
+		$mode           = isset( $_POST['mode'] ) && 'register' === $_POST['mode'] ? 'register' : 'login';
+		$name           = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		$terms_accepted = isset( $_POST['terms_accepted'] ) && '1' === $_POST['terms_accepted'];
 
 		$captcha = ASL_Recaptcha::verify(
 			isset( $_POST['recaptcha_token'] ) ? sanitize_text_field( wp_unslash( $_POST['recaptcha_token'] ) ) : '',
@@ -46,7 +47,7 @@ class ASL_Ajax {
 			wp_send_json_error( array( 'message' => $captcha->get_error_message() ) );
 		}
 
-		$result = ASL_Auth::send_otp( $mobile, $mode, $name );
+		$result = ASL_Auth::send_otp( $mobile, $mode, $name, $terms_accepted );
 
 		if ( is_wp_error( $result ) ) {
 			wp_send_json_error( array( 'message' => $result->get_error_message() ) );

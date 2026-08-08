@@ -274,6 +274,40 @@
 	margin-bottom: 14px;
 }
 
+.asl-terms-row {
+	text-align: right;
+}
+
+.asl-terms-label {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	font-size: 12.5px;
+	line-height: 1.9;
+	color: #6b6480;
+	cursor: pointer;
+}
+
+.asl-terms-label input[type="checkbox"] {
+	margin-top: 3px;
+	flex-shrink: 0;
+	accent-color: var(--asl-primary);
+	width: 15px;
+	height: 15px;
+}
+
+.asl-terms-text {
+	font-size: 12.5px;
+	line-height: 1.9;
+	color: #6b6480;
+}
+
+.asl-terms-row a {
+	color: var(--asl-primary);
+	font-weight: 700;
+	text-decoration: underline;
+}
+
 .asl-powered-by {
 	margin-top: 22px;
 	font-size: 11.5px;

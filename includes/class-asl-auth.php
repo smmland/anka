@@ -79,7 +79,7 @@ class ASL_Auth {
 	/**
 	 * @return array|WP_Error {resend_wait:int}
 	 */
-	public static function send_otp( $mobile, $mode, $name = '' ) {
+	public static function send_otp( $mobile, $mode, $name = '', $terms_accepted = false ) {
 		$general  = ASL_Settings::get_group( 'asl_general' );
 		$settings = ASL_Settings::get_group( 'asl_melipayamak' );
 
@@ -89,6 +89,11 @@ class ASL_Auth {
 
 		if ( 'register' === $mode && empty( $general['allow_register'] ) ) {
 			return new WP_Error( 'asl_register_disabled', ASL_Settings::message( 'register_disabled' ) );
+		}
+
+		// Terms acceptance is only enforced in checkbox mode; text mode implies consent by display alone.
+		if ( 'register' === $mode && ! empty( $general['enable_terms'] ) && empty( $general['terms_text_mode'] ) && empty( $terms_accepted ) ) {
+			return new WP_Error( 'asl_terms_required', ASL_Settings::message( 'terms_required' ) );
 		}
 
 		if ( ! self::is_valid_mobile( $mobile ) ) {

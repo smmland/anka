@@ -199,6 +199,23 @@ class ASL_Shortcode {
 							<button type="button" class="asl-resend-btn" disabled><?php echo esc_html( $design['link_resend'] ); ?></button>
 						</div>
 						<div class="asl-recaptcha-holder" data-form-recaptcha="send_otp" hidden></div>
+
+						<?php if ( ! empty( $general['enable_terms'] ) ) : ?>
+						<div class="asl-field asl-terms-row">
+							<?php if ( empty( $general['terms_text_mode'] ) ) : ?>
+							<label class="asl-terms-label">
+								<input type="checkbox" name="terms_accepted" value="1" class="asl-terms-checkbox" required />
+								<span><?php echo $this->render_terms_html( $design ); // phpcs:ignore -- pre-escaped in render_terms_html ?></span>
+							</label>
+							<?php else : ?>
+							<div class="asl-terms-text">
+								<input type="hidden" name="terms_accepted" value="1" />
+								<?php echo $this->render_terms_html( $design ); // phpcs:ignore -- pre-escaped in render_terms_html ?>
+							</div>
+							<?php endif; ?>
+						</div>
+						<?php endif; ?>
+
 						<button type="submit" class="asl-btn asl-btn-primary" data-step="request"><?php echo esc_html( $design['btn_register'] ); ?></button>
 					</form>
 
@@ -216,6 +233,25 @@ class ASL_Shortcode {
 		</div>
 		<?php
 		return ob_get_clean();
+	}
+
+	/**
+	 * Builds the (already-escaped) terms sentence with {link} swapped for a safe anchor.
+	 */
+	private function render_terms_html( $design ) {
+		$label = esc_html( $design['terms_link_label'] );
+		$link  = $design['terms_url']
+			? '<a href="' . esc_url( $design['terms_url'] ) . '" target="_blank" rel="noopener noreferrer">' . $label . '</a>'
+			: $label;
+
+		$text = $design['terms_text'];
+
+		if ( false !== strpos( $text, '{link}' ) ) {
+			list( $before, $after ) = explode( '{link}', $text, 2 );
+			return esc_html( $before ) . $link . esc_html( $after );
+		}
+
+		return esc_html( $text ) . ' ' . $link;
 	}
 
 	private function render_logged_in_notice() {

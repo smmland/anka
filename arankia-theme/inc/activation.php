@@ -45,10 +45,13 @@ function arankia_theme_activation() {
 	update_option( 'arankia_wallet_db_version', '1.1' );
 
 	// All custom account endpoints (wallet/wishlist/tickets/purchased-products)
-	// register themselves on `init`, which has already run by the time a
-	// theme activation request reaches this point — so a plain flush here
-	// is enough to pick them all up.
-	flush_rewrite_rules();
+	// register themselves on `init` — but `init` has already run for THIS
+	// request (using the *old* theme's functions.php) by the time
+	// `after_switch_theme` fires, so the new theme's add_rewrite_endpoint()
+	// calls haven't happened yet and flushing right here would save rules
+	// that are missing them. Flag a flush for the very next request instead,
+	// once `init` has run with the new theme actually active.
+	update_option( 'arankia_needs_rewrite_flush', 1 );
 }
 add_action( 'after_switch_theme', 'arankia_theme_activation' );
 
@@ -62,3 +65,15 @@ function arankia_maybe_upgrade_db() {
 	}
 }
 add_action( 'init', 'arankia_maybe_upgrade_db', 20 );
+
+/**
+ * Runs after every account endpoint has had a chance to register itself on
+ * `init` (priority 30, well after the default-priority registrations).
+ */
+function arankia_maybe_flush_rewrite_rules() {
+	if ( get_option( 'arankia_needs_rewrite_flush' ) ) {
+		flush_rewrite_rules();
+		delete_option( 'arankia_needs_rewrite_flush' );
+	}
+}
+add_action( 'init', 'arankia_maybe_flush_rewrite_rules', 30 );

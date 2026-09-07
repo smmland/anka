@@ -16,9 +16,10 @@ function arankia_theme_activation() {
 	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 	$charset_collate = $wpdb->get_charset_collate();
-	$table            = $wpdb->prefix . 'arankia_wallet_transactions';
+	$wallet_table     = $wpdb->prefix . 'arankia_wallet_transactions';
+	$news_table       = $wpdb->prefix . 'arankia_newsletter_subscribers';
 
-	$sql = "CREATE TABLE {$table} (
+	$sql = "CREATE TABLE {$wallet_table} (
 		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_id BIGINT UNSIGNED NOT NULL,
 		type VARCHAR(10) NOT NULL,
@@ -29,11 +30,19 @@ function arankia_theme_activation() {
 		created_at DATETIME NOT NULL,
 		PRIMARY KEY  (id),
 		KEY user_id (user_id)
+	) {$charset_collate};
+
+	CREATE TABLE {$news_table} (
+		id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+		email VARCHAR(190) NOT NULL,
+		created_at DATETIME NOT NULL,
+		PRIMARY KEY  (id),
+		UNIQUE KEY email (email)
 	) {$charset_collate};";
 
 	dbDelta( $sql );
 
-	update_option( 'arankia_wallet_db_version', '1.0' );
+	update_option( 'arankia_wallet_db_version', '1.1' );
 
 	// All custom account endpoints (wallet/wishlist/tickets/purchased-products)
 	// register themselves on `init`, which has already run by the time a
@@ -48,7 +57,7 @@ add_action( 'after_switch_theme', 'arankia_theme_activation' );
  * create it lazily the next time it's needed.
  */
 function arankia_maybe_upgrade_db() {
-	if ( '1.0' !== get_option( 'arankia_wallet_db_version' ) ) {
+	if ( '1.1' !== get_option( 'arankia_wallet_db_version' ) ) {
 		arankia_theme_activation();
 	}
 }

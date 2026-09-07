@@ -30,6 +30,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 	require_once ARANKIA_DIR . '/inc/invoice.php';
 	require_once ARANKIA_DIR . '/inc/class-wallet.php';
 	require_once ARANKIA_DIR . '/inc/class-wishlist.php';
+	require_once ARANKIA_DIR . '/inc/front-page.php';
 }
 
 require_once ARANKIA_DIR . '/inc/class-support-tickets.php';

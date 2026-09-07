@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php arankia_footer_location(); ?>
 
+<?php get_template_part( 'template-parts/mobile-tabbar' ); ?>
+
 <?php wp_footer(); ?>
 </body>
 </html>

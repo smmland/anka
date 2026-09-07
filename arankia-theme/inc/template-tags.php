@@ -135,9 +135,88 @@ function arankia_icon( $name ) {
 		'print'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>',
 		'clock'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>',
 		'check'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12.5l5 5L20 7"/></svg>',
+		'chevron-right' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 6l6 6-6 6"/></svg>',
+		'truck'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 6h11v10H2z"/><path d="M13 10h4l4 3.5V16h-8z"/><circle cx="6.5" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg>',
+		'shield'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+		'badge'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="10" r="6"/><path d="M9 15.5L8 21l4-2 4 2-1-5.5"/></svg>',
+		'headset'   => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="6" rx="1.4"/><rect x="17.5" y="13" width="4" height="6" rx="1.4"/><path d="M20 19v1a2 2 0 0 1-2 2h-3"/></svg>',
+		'receipt'   => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h12v18l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.5V3z"/><path d="M9 8h6M9 12h6"/></svg>',
+		'star'      => '<svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 2.5l2.9 6 6.6.7-4.9 4.5 1.3 6.5L12 16.9 6.1 20.2l1.3-6.5-4.9-4.5 6.6-.7z"/></svg>',
+		'arrow-up'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 19V5M6 11l6-6 6 6"/></svg>',
+		'home'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg>',
+		'grid'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>',
+		'headphone' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2.5" y="13" width="4" height="6" rx="1.4"/><rect x="17.5" y="13" width="4" height="6" rx="1.4"/></svg>',
+		'kettle'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 10h11a3 3 0 0 1 0 6h-1"/><path d="M5 10a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2z"/><path d="M9 10V6a2 2 0 0 1 4 0"/></svg>',
+		'shoe'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17c0-2 1.5-3 3-4l4-3.5c1-.9 2-1.5 3.5-1.5h1.8c.7 0 1.2.5 1.2 1.2v2.1c0 .7.4 1.3 1 1.6l3 1.6c1 .5 1.5 1 1.5 2v1z"/><path d="M3 17h18v2H3z"/></svg>',
+		'watch'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="5.5"/><path d="M9 3h6l-.7 4.5h-4.6zM9 21h6l-.7-4.5h-4.6z"/><path d="M12 9.5V12l1.6 1.2"/></svg>',
+		'lamp'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 4h10l-2.5 7h-5z"/><path d="M12 11v6"/><path d="M8 21h8l-1-2H9z"/></svg>',
+		'dumbbell'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 9v6M2 10v4M20 9v6M22 10v4"/><path d="M7 12h10"/><rect x="5.5" y="8.5" width="3" height="7" rx="1"/><rect x="15.5" y="8.5" width="3" height="7" rx="1"/></svg>',
+		'blocks'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="12" width="6" height="6" rx="1"/><circle cx="16" cy="7" r="3"/><rect x="13" y="12" width="6" height="6" rx="1"/></svg>',
+		'shirt'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 4L4 7l2 3 2-1.3V20h8V8.7L18 10l2-3-4-3-2 2h-4z"/></svg>',
 	);
 
 	if ( isset( $icons[ $name ] ) ) {
 		echo '<span class="arankia-icon arankia-icon--' . esc_attr( $name ) . '">' . $icons[ $name ] . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput
 	}
+}
+
+/**
+ * Single source of truth for every editable landing-page default (hero copy,
+ * testimonials, stats, newsletter). Both inc/customizer.php (so the Customizer
+ * UI shows sensible starting text) and front-page.php (so the homepage looks
+ * right on a fresh install, before anyone has opened the Customizer) read
+ * from here — get_theme_mod()'s own default argument is what actually renders
+ * on a normal page load, so the two must never drift apart.
+ */
+function arankia_home_default( $key ) {
+	$defaults = array(
+		'hero_title'    => __( 'همون آرانکیا، با تجربه‌ای کاملاً تازه.', 'arankia' ),
+		'hero_subtitle' => __( 'این‌بار نه فقط یک ویترین جدید؛ فروشگاهی با کیف‌پول اختصاصی، فاکتور رسمی برای هر سفارش، پیگیری لحظه‌به‌لحظه و پشتیبانی واقعی — همه‌چیز برای خریدی که نگرانش نباشید.', 'arankia' ),
+
+		'stat_value_1' => '۱۲,۰۰۰+',
+		'stat_label_1' => __( 'مشتری راضی', 'arankia' ),
+		'stat_value_2' => '۴.۸',
+		'stat_label_2' => __( 'امتیاز از ۵', 'arankia' ),
+		'stat_value_3' => '۲۴',
+		'stat_label_3' => __( 'ساعت میانگین ارسال', 'arankia' ),
+		'stat_value_4' => '۹۸٪',
+		'stat_label_4' => __( 'رضایت از پشتیبانی', 'arankia' ),
+
+		'testimonial_text_1' => __( 'از سفارش تا تحویل کمتر از دو روز طول کشید. فاکتور رسمی هم گرفتم که برام مهم بود.', 'arankia' ),
+		'testimonial_name_1' => __( 'نگین توکلی', 'arankia' ),
+		'testimonial_city_1' => __( 'تهران', 'arankia' ),
+		'testimonial_text_2' => __( 'کیف‌پول آرانکیا خیلی به‌دردم خورد؛ دیگه هر بار کارت نمی‌کشم و پرداخت آنی انجام می‌شه.', 'arankia' ),
+		'testimonial_name_2' => __( 'امیر رضایی', 'arankia' ),
+		'testimonial_city_2' => __( 'اصفهان', 'arankia' ),
+		'testimonial_text_3' => __( 'یک بار مشکل در سایز کفش داشتم، تیکت زدم و ظرف یک روز جواب و راه‌حل گرفتم.', 'arankia' ),
+		'testimonial_name_3' => __( 'سارا کریمی', 'arankia' ),
+		'testimonial_city_3' => __( 'شیراز', 'arankia' ),
+
+		'newsletter_title' => __( 'به باشگاه مشتریان آرانکیا بپیوندید', 'arankia' ),
+		'newsletter_text'  => __( 'با عضویت در خبرنامه، از تخفیف‌های زودهنگام و محصولات جدید آرانکیا باخبر شوید.', 'arankia' ),
+
+		'announce_text' => __( 'ارسال رایگان برای سفارش‌های بالای ۲,۰۰۰,۰۰۰ تومان — تا پایان این هفته', 'arankia' ),
+	);
+
+	return isset( $defaults[ $key ] ) ? $defaults[ $key ] : '';
+}
+
+/**
+ * Deterministic icon + tint pair for a category/product that has no photo
+ * yet (fresh catalogs, empty terms) — same id always gets the same look,
+ * so the storefront still reads as designed rather than empty.
+ *
+ * @return array{icon:string,tint:string} tint is one of primary|gold|danger.
+ */
+function arankia_visual_placeholder( $id ) {
+	$icons = array( 'headphone', 'shirt', 'lamp', 'watch', 'shoe', 'dumbbell', 'kettle', 'blocks', 'box', 'wallet' );
+	$tints = array( 'primary', 'gold', 'danger' );
+
+	$icon_index = abs( (int) $id ) % count( $icons );
+	$tint_index = abs( (int) $id ) % count( $tints );
+
+	return array(
+		'icon' => $icons[ $icon_index ],
+		'tint' => $tints[ $tint_index ],
+	);
 }

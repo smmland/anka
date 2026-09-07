@@ -15,6 +15,13 @@ $ig      = get_theme_mod( 'arankia_social_instagram', '' );
 $tg      = get_theme_mod( 'arankia_social_telegram', '' );
 $wa      = get_theme_mod( 'arankia_social_whatsapp', '' );
 $has_wc  = class_exists( 'WooCommerce' );
+
+$announce_text = get_theme_mod( 'arankia_announce_text', arankia_home_default( 'announce_text' ) );
+if ( get_theme_mod( 'arankia_announce_enable', true ) && $announce_text ) :
+	?>
+	<div class="site-announce"><?php echo wp_kses_post( $announce_text ); ?></div>
+	<?php
+endif;
 ?>
 <header id="masthead" class="site-header">
 

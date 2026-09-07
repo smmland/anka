@@ -65,7 +65,24 @@ function arankia_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+		'arankia_announce_enable',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'rest_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'arankia_announce_enable',
+		array(
+			'label'   => __( 'نمایش نوار اعلان بالای سایت', 'arankia' ),
+			'section' => 'arankia_header',
+			'type'    => 'checkbox',
+		)
+	);
+
 	$text_fields = array(
+		'announce_text'  => array( __( 'ارسال رایگان برای سفارش‌های بالای ۲,۰۰۰,۰۰۰ تومان — تا پایان این هفته', 'arankia' ), __( 'متن نوار اعلان', 'arankia' ) ),
 		'header_phone'   => array( '021-00000000', __( 'شماره تماس', 'arankia' ) ),
 		'header_hours'   => array( __( 'شنبه تا پنجشنبه ۹ تا ۱۸', 'arankia' ), __( 'ساعات پاسخگویی', 'arankia' ) ),
 		'social_instagram' => array( '', __( 'لینک اینستاگرام', 'arankia' ) ),
@@ -130,6 +147,167 @@ function arankia_customize_register( $wp_customize ) {
 			'label'   => __( 'متن کپی‌رایت', 'arankia' ),
 			'section' => 'arankia_footer',
 			'type'    => 'text',
+		)
+	);
+
+	/* ---------------- صفحه اصلی (لندینگ) ---------------- */
+	$wp_customize->add_section(
+		'arankia_home',
+		array(
+			'title' => __( 'صفحه اصلی (لندینگ)', 'arankia' ),
+			'panel' => 'arankia_options',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'arankia_hero_title',
+		array(
+			'default'           => arankia_home_default( 'hero_title' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'arankia_hero_title',
+		array(
+			'label'   => __( 'عنوان اصلی هیرو', 'arankia' ),
+			'section' => 'arankia_home',
+			'type'    => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'arankia_hero_subtitle',
+		array(
+			'default'           => arankia_home_default( 'hero_subtitle' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+		)
+	);
+	$wp_customize->add_control(
+		'arankia_hero_subtitle',
+		array(
+			'label'   => __( 'توضیح زیر عنوان هیرو', 'arankia' ),
+			'section' => 'arankia_home',
+			'type'    => 'textarea',
+		)
+	);
+
+	// آمار (۴ عدد بزرگ).
+	for ( $i = 1; $i <= 4; $i++ ) {
+		$wp_customize->add_setting(
+			'arankia_stat_value_' . $i,
+			array(
+				'default'           => arankia_home_default( 'stat_value_' . $i ),
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			'arankia_stat_value_' . $i,
+			array(
+				/* translators: %d: stat tile number. */
+				'label'   => sprintf( __( 'عدد آماری شماره %d', 'arankia' ), $i ),
+				'section' => 'arankia_home',
+				'type'    => 'text',
+			)
+		);
+		$wp_customize->add_setting(
+			'arankia_stat_label_' . $i,
+			array(
+				'default'           => arankia_home_default( 'stat_label_' . $i ),
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			'arankia_stat_label_' . $i,
+			array(
+				/* translators: %d: stat tile number. */
+				'label'   => sprintf( __( 'برچسب آماری شماره %d', 'arankia' ), $i ),
+				'section' => 'arankia_home',
+				'type'    => 'text',
+			)
+		);
+	}
+
+	// نظرات مشتریان (۳ مورد نمونه، قابل جایگزینی).
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$wp_customize->add_setting(
+			'arankia_testimonial_text_' . $i,
+			array(
+				'default'           => arankia_home_default( 'testimonial_text_' . $i ),
+				'sanitize_callback' => 'sanitize_textarea_field',
+			)
+		);
+		$wp_customize->add_control(
+			'arankia_testimonial_text_' . $i,
+			array(
+				/* translators: %d: testimonial number. */
+				'label'   => sprintf( __( 'متن نظر مشتری %d (نمونه — جایگزین کنید)', 'arankia' ), $i ),
+				'section' => 'arankia_home',
+				'type'    => 'textarea',
+			)
+		);
+		$wp_customize->add_setting(
+			'arankia_testimonial_name_' . $i,
+			array(
+				'default'           => arankia_home_default( 'testimonial_name_' . $i ),
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			'arankia_testimonial_name_' . $i,
+			array(
+				/* translators: %d: testimonial number. */
+				'label'   => sprintf( __( 'نام مشتری %d', 'arankia' ), $i ),
+				'section' => 'arankia_home',
+				'type'    => 'text',
+			)
+		);
+		$wp_customize->add_setting(
+			'arankia_testimonial_city_' . $i,
+			array(
+				'default'           => arankia_home_default( 'testimonial_city_' . $i ),
+				'sanitize_callback' => 'sanitize_text_field',
+			)
+		);
+		$wp_customize->add_control(
+			'arankia_testimonial_city_' . $i,
+			array(
+				/* translators: %d: testimonial number. */
+				'label'   => sprintf( __( 'شهر مشتری %d', 'arankia' ), $i ),
+				'section' => 'arankia_home',
+				'type'    => 'text',
+			)
+		);
+	}
+
+	$wp_customize->add_setting(
+		'arankia_newsletter_title',
+		array(
+			'default'           => arankia_home_default( 'newsletter_title' ),
+			'sanitize_callback' => 'sanitize_text_field',
+		)
+	);
+	$wp_customize->add_control(
+		'arankia_newsletter_title',
+		array(
+			'label'   => __( 'عنوان بخش خبرنامه', 'arankia' ),
+			'section' => 'arankia_home',
+			'type'    => 'text',
+		)
+	);
+
+	$wp_customize->add_setting(
+		'arankia_newsletter_text',
+		array(
+			'default'           => arankia_home_default( 'newsletter_text' ),
+			'sanitize_callback' => 'sanitize_textarea_field',
+		)
+	);
+	$wp_customize->add_control(
+		'arankia_newsletter_text',
+		array(
+			'label'   => __( 'توضیح بخش خبرنامه', 'arankia' ),
+			'section' => 'arankia_home',
+			'type'    => 'textarea',
 		)
 	);
 }

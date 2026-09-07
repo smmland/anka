@@ -26,6 +26,10 @@ function arankia_enqueue_assets() {
 		if ( is_account_page() ) {
 			wp_enqueue_style( 'arankia-account', ARANKIA_URI . '/assets/css/account.css', array( 'arankia-woocommerce' ), ARANKIA_VERSION );
 		}
+
+		if ( is_front_page() ) {
+			wp_enqueue_style( 'arankia-front-page', ARANKIA_URI . '/assets/css/front-page.css', array( 'arankia-woocommerce' ), ARANKIA_VERSION );
+		}
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -41,6 +45,10 @@ function arankia_enqueue_assets() {
 			wp_enqueue_script( 'arankia-account', ARANKIA_URI . '/assets/js/account.js', array(), ARANKIA_VERSION, true );
 		}
 
+		if ( is_front_page() ) {
+			wp_enqueue_script( 'arankia-front-page', ARANKIA_URI . '/assets/js/front-page.js', array( 'arankia-ajax-cart' ), ARANKIA_VERSION, true );
+		}
+
 		wp_localize_script(
 			'arankia-ajax-cart',
 			'arankiaVars',
@@ -49,6 +57,7 @@ function arankia_enqueue_assets() {
 				'nonce'          => wp_create_nonce( 'arankia_nonce' ),
 				'isLoggedIn'     => is_user_logged_in(),
 				'wishlistNonce'  => wp_create_nonce( 'arankia_wishlist_nonce' ),
+				'newsletterNonce' => wp_create_nonce( 'arankia_newsletter_nonce' ),
 				'loginUrl'       => wc_get_page_permalink( 'myaccount' ),
 				'i18n'           => array(
 					'addedToWishlist'   => __( 'به لیست علاقه‌مندی‌ها اضافه شد', 'arankia' ),

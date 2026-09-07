@@ -98,6 +98,7 @@ label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; c
 .arankia-icon svg { width: 100%; height: 100%; }
 
 /* -------------------- Header -------------------- */
+.site-announce { background: var(--arankia-dark); color: var(--arankia-bg); font-size: 12.5px; text-align: center; padding: 9px 16px; }
 .site-header { background: var(--arankia-surface); position: sticky; top: 0; z-index: 500; box-shadow: var(--shadow-sm); }
 .header-topbar { background: var(--arankia-dark); color: #cbd2e0; font-size: 12.5px; }
 .topbar-inner { display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; gap: 16px; }
@@ -225,6 +226,9 @@ label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; c
 }
 .back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
 
+/* -------------------- Mobile bottom tab bar -------------------- */
+.mobile-tabbar { display: none; }
+
 /* -------------------- Responsive -------------------- */
 @media (max-width: 991px) {
 	.content-with-sidebar { grid-template-columns: 1fr; }
@@ -240,4 +244,20 @@ label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; c
 	.topbar-inner { flex-direction: column; gap: 4px; align-items: flex-start; }
 	.single-article { padding: 20px; }
 	.article-title { font-size: 21px; }
+
+	body { padding-bottom: 64px; }
+	.back-to-top { bottom: 78px; }
+
+	.mobile-tabbar {
+		display: flex; position: fixed; bottom: 0; inset-inline: 0; z-index: 450;
+		background: var(--arankia-surface); border-top: 1px solid var(--arankia-border);
+		box-shadow: 0 -6px 20px rgba(16,24,40,.08); padding: 8px 6px calc(env(safe-area-inset-bottom, 0px) + 6px);
+	}
+	.mobile-tabbar a {
+		flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+		font-size: 10.5px; font-weight: 600; color: var(--arankia-text-muted); padding: 4px 0; position: relative;
+	}
+	.mobile-tabbar a .arankia-icon { font-size: 20px; }
+	.mobile-tabbar a.is-active { color: var(--arankia-primary); }
+	.mobile-tabbar a .action-count { top: -2px; left: calc(50% + 4px); }
 }

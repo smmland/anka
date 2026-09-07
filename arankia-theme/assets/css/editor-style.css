@@ -1,0 +1,9 @@
+/* Basic block-editor preview styling to roughly match the front-end typography */
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+
+body {
+	font-family: 'Vazirmatn', Tahoma, Arial, sans-serif;
+	direction: rtl;
+	text-align: right;
+	color: #1f2430;
+}

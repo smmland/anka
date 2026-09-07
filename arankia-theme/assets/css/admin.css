@@ -1,0 +1,13 @@
+/* Arankia admin-side helper styles: wallet page + ticket thread metabox */
+
+.arankia-wallet-search { margin: 16px 0; display: flex; gap: 8px; }
+.arankia-wallet-search input[type="text"] { min-width: 280px; }
+
+.arankia-wallet-adjust-form { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; background: #fff; padding: 16px; border: 1px solid #dcdcde; border-radius: 6px; margin: 16px 0; }
+.arankia-wallet-adjust-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; }
+
+.arankia-admin-ticket-thread { display: flex; flex-direction: column; gap: 12px; }
+.arankia-admin-ticket-thread .arankia-ticket-message { background: #f6f7f7; border-radius: 6px; padding: 12px 14px; }
+.arankia-admin-ticket-thread .arankia-ticket-message.is-staff { background: #eaf6f1; }
+.arankia-admin-ticket-thread .arankia-ticket-message span { color: #666; font-size: 12px; }
+.arankia-admin-ticket-thread .arankia-ticket-message p { margin: 6px 0 0; }

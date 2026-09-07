@@ -1,0 +1,23 @@
+/*
+Theme Name: Arankia Store
+Theme URI: https://arankia.ir
+Author: Arankia
+Author URI: https://arankia.ir
+Description: قالب اختصاصی و حرفه‌ای فروشگاهی آرانکیا. سازگار کامل با ووکامرس و صفحه‌ساز المنتور، به همراه ماژول‌های اختصاصی کیف پول، لیست علاقه‌مندی‌ها و تیکت پشتیبانی که به‌طور کامل درون خود قالب پیاده‌سازی شده‌اند و به افزونه جانبی نیاز ندارند.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: arankia
+Domain Path: /languages
+Tags: e-commerce, custom-menu, featured-images, full-width-template, rtl-language-support, translation-ready
+WC requires at least: 6.0
+WC tested up to: 9.0
+*/
+
+/*
+این فایل فقط برای هدر شناسایی قالب توسط وردپرس است.
+تمامی استایل‌های واقعی در پوشه assets/css بارگذاری می‌شوند.
+*/

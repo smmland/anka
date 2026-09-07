@@ -153,6 +153,12 @@ function arankia_icon( $name ) {
 		'dumbbell'  => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 9v6M2 10v4M20 9v6M22 10v4"/><path d="M7 12h10"/><rect x="5.5" y="8.5" width="3" height="7" rx="1"/><rect x="15.5" y="8.5" width="3" height="7" rx="1"/></svg>',
 		'blocks'    => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="12" width="6" height="6" rx="1"/><circle cx="16" cy="7" r="3"/><rect x="13" y="12" width="6" height="6" rx="1"/></svg>',
 		'shirt'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 4L4 7l2 3 2-1.3V20h8V8.7L18 10l2-3-4-3-2 2h-4z"/></svg>',
+		'leaf'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20C4 10 12 4 20 4c0 8-6 16-16 16z"/><path d="M6.5 17.5C10 13.5 13 10 17 6"/></svg>',
+		'tractor'   => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 15h4l1-4h6v4h2l3-3v3"/><circle cx="7" cy="18" r="2.6"/><circle cx="17" cy="18" r="3.6"/><path d="M14 11V7h2"/></svg>',
+		'watering-can' => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h9a3 3 0 0 1 0 6H6a2 2 0 0 1-2-2z"/><path d="M13 12l6-3"/><path d="M13 9V6a2 2 0 0 1 2-2h1"/><path d="M6 9V7"/></svg>',
+		'spray'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 4h4v3H9z"/><path d="M10 7v3"/><path d="M7 10h6a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-7a2 2 0 0 1 1-2z"/><path d="M17 8l2-1M18 11h2.2M17 14l2 1"/></svg>',
+		'flask'     => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M8 15h8"/></svg>',
+		'book'      => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v17H6.5A2.5 2.5 0 0 0 4 22.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H12v17h5.5a2.5 2.5 0 0 1 2.5 2.5"/></svg>',
 	);
 
 	if ( isset( $icons[ $name ] ) ) {
@@ -170,8 +176,8 @@ function arankia_icon( $name ) {
  */
 function arankia_home_default( $key ) {
 	$defaults = array(
-		'hero_title'    => __( 'همون آرانکیا، با تجربه‌ای کاملاً تازه.', 'arankia' ),
-		'hero_subtitle' => __( 'این‌بار نه فقط یک ویترین جدید؛ فروشگاهی با کیف‌پول اختصاصی، فاکتور رسمی برای هر سفارش، پیگیری لحظه‌به‌لحظه و پشتیبانی واقعی — همه‌چیز برای خریدی که نگرانش نباشید.', 'arankia' ),
+		'hero_title'    => __( 'از بذر تا برداشت، همه‌چیز را از آرانکیا بخواهید.', 'arankia' ),
+		'hero_subtitle' => __( 'ابزار، ادوات، کود و ملزومات کشت با ضمانت اصالت، کیف‌پول اختصاصی و فاکتور رسمی برای هر سفارش — خریدی که کشاورزان به آن اعتماد دارند.', 'arankia' ),
 
 		'stat_value_1' => '۱۲,۰۰۰+',
 		'stat_label_1' => __( 'مشتری راضی', 'arankia' ),
@@ -204,12 +210,13 @@ function arankia_home_default( $key ) {
 /**
  * Deterministic icon + tint pair for a category/product that has no photo
  * yet (fresh catalogs, empty terms) — same id always gets the same look,
- * so the storefront still reads as designed rather than empty.
+ * so the storefront still reads as designed rather than empty. Icon pool
+ * is geared toward a farm-tools-and-supplies catalog (Arankia's vertical).
  *
  * @return array{icon:string,tint:string} tint is one of primary|gold|danger.
  */
 function arankia_visual_placeholder( $id ) {
-	$icons = array( 'headphone', 'shirt', 'lamp', 'watch', 'shoe', 'dumbbell', 'kettle', 'blocks', 'box', 'wallet' );
+	$icons = array( 'tractor', 'leaf', 'watering-can', 'spray', 'flask', 'book', 'box', 'wallet' );
 	$tints = array( 'primary', 'gold', 'danger' );
 
 	$icon_index = abs( (int) $id ) % count( $icons );
@@ -219,4 +226,38 @@ function arankia_visual_placeholder( $id ) {
 		'icon' => $icons[ $icon_index ],
 		'tint' => $tints[ $tint_index ],
 	);
+}
+
+/**
+ * Same idea as arankia_visual_placeholder(), but for a product *category*
+ * where we actually have a meaningful name to read — so a term called
+ * «کنترل آفات» gets the spray-can icon instead of a random one, and only
+ * falls back to the deterministic hash when no keyword matches.
+ *
+ * @param WP_Term $term
+ * @return array{icon:string,tint:string}
+ */
+function arankia_home_category_visual( $term ) {
+	$keyword_map = array(
+		'leaf'         => array( 'کشت', 'رشد', 'بذر', 'نهال', 'کود' ),
+		'watering-can' => array( 'آبیاری', 'آب' ),
+		'spray'        => array( 'آفت', 'سم' ),
+		'tractor'      => array( 'ابزار', 'ادوات', 'ماشین' ),
+		'flask'        => array( 'آزمایشگاه', 'دقیق', 'تست' ),
+		'book'         => array( 'آموزش', 'کتاب' ),
+	);
+
+	foreach ( $keyword_map as $icon => $keywords ) {
+		foreach ( $keywords as $keyword ) {
+			if ( false !== mb_strpos( $term->name, $keyword ) ) {
+				$tints = array( 'primary', 'gold', 'danger' );
+				return array(
+					'icon' => $icon,
+					'tint' => $tints[ abs( (int) $term->term_id ) % count( $tints ) ],
+				);
+			}
+		}
+	}
+
+	return arankia_visual_placeholder( $term->term_id );
 }

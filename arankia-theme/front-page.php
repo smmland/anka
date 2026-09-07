@@ -82,10 +82,10 @@ $blog_index_url = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'p
 				endforeach;
 			else :
 				$demo_tiles = array(
-					array( 'headphone', 'primary', __( 'هدفون بی‌سیم Aria', 'arankia' ), '۱,۲۹۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
-					array( 'watch', 'gold', __( 'ساعت هوشمند X5', 'arankia' ), '۲,۴۵۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
-					array( 'kettle', 'danger', __( 'کتری استیل ۱.۷ لیتری', 'arankia' ), '۸۹۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
-					array( 'shoe', 'primary', __( 'کفش رانینگ Airlite', 'arankia' ), '۱,۶۹۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
+					array( 'spray', 'primary', __( 'سمپاش پشتی ۱۶ لیتری', 'arankia' ), '۱,۲۹۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
+					array( 'watering-can', 'gold', __( 'کود مایع رشد ۱ لیتری', 'arankia' ), '۲۴۵,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
+					array( 'tractor', 'danger', __( 'بذرپاش دستی', 'arankia' ), '۸۹۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
+					array( 'leaf', 'primary', __( 'قیچی باغبانی حرفه‌ای', 'arankia' ), '۳۶۰,۰۰۰ ' . __( 'تومان', 'arankia' ) ),
 				);
 				foreach ( $demo_tiles as $i => $tile ) :
 					?>
@@ -133,7 +133,7 @@ $blog_index_url = get_option( 'page_for_posts' ) ? get_permalink( get_option( 'p
 			<div class="home-shelf-track">
 				<?php foreach ( $home_categories as $term ) : ?>
 					<?php
-					$visual       = arankia_visual_placeholder( $term->term_id );
+					$visual       = arankia_home_category_visual( $term );
 					$thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
 					?>
 					<a href="<?php echo esc_url( get_term_link( $term ) ); ?>" class="home-cat-card">

@@ -1,0 +1,177 @@
+.aas-admin-wrap {
+	direction: rtl;
+	text-align: right;
+}
+
+.aas-admin-header p {
+	color: #646970;
+	max-width: 720px;
+}
+
+.aas-section-title {
+	margin-top: 28px;
+}
+
+.aas-badge {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+	font-weight: 600;
+	margin-inline-end: 4px;
+}
+
+.aas-badge-ok {
+	background: #edfaef;
+	color: #1a7f37;
+}
+
+.aas-badge-warning {
+	background: #fff8e5;
+	color: #9a6700;
+}
+
+.aas-badge-error {
+	background: #fdecea;
+	color: #b3261e;
+}
+
+.aas-badge-muted {
+	background: #f0f0f1;
+	color: #50575e;
+}
+
+.aas-product-table td,
+.aas-product-table th {
+	vertical-align: middle;
+}
+
+/* ---------------- Review slider ---------------- */
+
+.aas-review-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 10px 16px;
+	margin: 16px 0;
+}
+
+.aas-review-nav .button {
+	margin-inline-start: 6px;
+}
+
+.aas-product-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 20px;
+}
+
+.aas-product-card h2 {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.aas-edit-link {
+	font-size: 13px;
+	font-weight: 400;
+}
+
+.aas-field-row {
+	border: 1px solid #e2e4e7;
+	border-radius: 6px;
+	padding: 12px 16px;
+	margin-bottom: 14px;
+}
+
+.aas-field-row.aas-issue-error {
+	border-inline-start: 4px solid #d63638;
+}
+
+.aas-field-row.aas-issue-warning {
+	border-inline-start: 4px solid #dba617;
+}
+
+.aas-field-row.aas-issue-ok {
+	border-inline-start: 4px solid #00a32a;
+}
+
+.aas-field-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+
+.aas-checklist-badge {
+	font-size: 12px;
+	padding: 2px 8px;
+	border-radius: 10px;
+}
+
+.aas-checklist-badge.aas-badge-ok {
+	background: #edfaef;
+	color: #1a7f37;
+}
+
+.aas-checklist-badge.aas-badge-warning {
+	background: #fff8e5;
+	color: #9a6700;
+}
+
+.aas-checklist-badge.aas-badge-error {
+	background: #fdecea;
+	color: #b3261e;
+}
+
+.aas-field-compare {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+@media ( max-width: 782px ) {
+	.aas-field-compare {
+		grid-template-columns: 1fr;
+	}
+}
+
+.aas-field-col-label {
+	display: block;
+	font-size: 11px;
+	color: #646970;
+	margin-bottom: 4px;
+}
+
+.aas-field-value {
+	background: #f6f7f7;
+	border-radius: 4px;
+	padding: 8px 10px;
+	min-height: 20px;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.aas-field-new .aas-field-value {
+	background: #eef6ff;
+}
+
+.aas-review-actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	padding-top: 16px;
+	border-top: 1px solid #e2e4e7;
+}
+
+.aas-review-result {
+	color: #d63638;
+}
